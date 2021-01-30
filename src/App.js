@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Route, Switch } from "react-router-dom";
 import Category from "./Category";
 import Products from "./Products";
+import ToDos from "./components/ToDos/ToDos";
 import Login from './Login';
 import PrivateRoute from "./PrivateRoute";
 
@@ -34,6 +35,9 @@ export default function App() {
           <li>
             <Link to="/admin">Admin area</Link>
           </li>
+          <li>
+            <Link to="/todos">To Dos</Link>
+          </li>
         </ul>
       </nav>
 
@@ -42,6 +46,7 @@ export default function App() {
         <Route path="/category"><Category /></Route>
         <Route path="/login"><Login /></Route>
         <Route path="/products"><Products /></Route>
+        <Route path="/todos"><ToDos /></Route>
         <PrivateRoute path="/admin" component={Admin} />
       </Switch>
     </div>
