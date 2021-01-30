@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
+import ToDosService  from "../../service/ToDos.service";
 
 class ToDo extends Component {
   constructor(props) {
     super(props);
     this.onChangeTitle = this.onChangeTitle.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangecompleted = this.onChangecompleted.bind(this);
     this.saveToDo = this.saveToDo.bind(this);
     this.newToDo = this.newToDo.bind(this);
 
     this.state = {
       id: null,
       title: "",
-      description: "", 
+      completed: "", 
       published: false,
 
       submitted: false
@@ -24,41 +25,41 @@ class ToDo extends Component {
     });
   }
 
-  onChangeDescription(e) {
+  onChangecompleted(e) {
     this.setState({
-      description: e.target.value
+      completed: e.target.value
     });
   }
 
   saveToDo() {
     var data = {
       title: this.state.title,
-      description: this.state.description
+      completed: this.state.completed
     };
 
-console.log(data);
-    // ToDoDataService.create(data)
-    //   .then(response => {
-    //     this.setState({
-    //       id: response.data.id,
-    //       title: response.data.title,
-    //       description: response.data.description,
-    //       published: response.data.published,
+    console.log(data);
+    ToDosService.create(data)
+      .then(response => {
+        this.setState({
+          id: response.data.id,
+          title: response.data.title,
+          completed: response.data.completed,
+          published: response.data.published,
 
-    //       submitted: true
-    //     });
-    //     console.log(response.data);
-    //   })
-    //   .catch(e => {
-    //     console.log(e);
-    //   });
+          submitted: true
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   newToDo() {
     this.setState({
       id: null,
       title: "",
-      description: "",
+      completed: "",
       published: false,
 
       submitted: false
@@ -90,15 +91,15 @@ console.log(data);
             </div>
 
             <div className="form-group">
-              <label htmlFor="description">Description</label>
+              <label htmlFor="completed">completed</label>
               <input
                 type="text"
                 className="form-control"
-                id="description"
+                id="completed"
                 required
-                value={this.state.description}
-                onChange={this.onChangeDescription}
-                name="description"
+                value={this.state.completed}
+                onChange={this.onChangecompleted}
+                name="completed"
               />
             </div>
 

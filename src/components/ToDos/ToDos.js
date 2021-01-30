@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link, Route, Switch } from "react-router-dom";
+import ToDosService  from "../../service/ToDos.service";
 
 class ToDos extends Component {
   render() {
@@ -20,10 +21,10 @@ class ToDos extends Component {
                 <tr key={todo.id}>
                   <td>{todo.id}</td>
                   <td>{todo.title}</td>
-                  <td>sdsdssdsdsd{todo.completed}</td>
+                  <td>{String(todo.completed)}</td>
                   <td><button onClick={this.editToDo} >Edit</button></td>
                   <td><button onClick={this.editToDo} >Edit</button></td>
-                  <Link to="/todo/1">Edit</Link>
+                  <td><Link to="/todo/1">Edit</Link></td>
                 </tr>
               ))}
 
@@ -42,13 +43,23 @@ state = {
   todos: []
 };
 componentDidMount() {
-  fetch('http://jsonplaceholder.typicode.com/ToDos')
-    .then(res => res.json())
-    .then((data) => {
-      this.setState({ todos: data })
-      console.log(data);
-    })
-    .catch(console.log)
+  ToDosService.GetAllData()
+      .then(response => {
+        this.setState({
+          todos: response.data
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  // fetch('http://localhost:53973/Api/ToDo/GetAllData')
+  //   .then(res => res.json())
+  //   .then((data) => {
+  //     console.log(data);
+  //     this.setState({ todos: data })
+  //     console.log(data);
+  //   })
+  //   .catch(console.log)
 }
    
   }
