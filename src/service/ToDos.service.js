@@ -6,7 +6,7 @@ class ToDosService {
   }
 
   get(id) {
-    return http.get(`/ToDo/GetDataById/${id}`);
+    return http.get(`/ToDo/GetDataById?Id=${id}`);
   }
 
   create(data) {
@@ -14,7 +14,7 @@ class ToDosService {
   }
 
   update(id, data) {
-    return http.put(`/tutorials/${id}`, data);
+    return http.put(`/ToDo/UpdateData/${id}`, data);
   }
 
   delete(id) {

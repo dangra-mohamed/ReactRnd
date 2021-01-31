@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import ToDosService  from "../../service/ToDos.service";
+import ToDosService from "../../service/ToDos.service";
 
 class ToDo extends Component {
   constructor(props) {
@@ -12,11 +12,33 @@ class ToDo extends Component {
     this.state = {
       id: null,
       title: "",
-      completed: "", 
+      completed: "",
       published: false,
 
       submitted: false
     };
+  }
+
+  componentDidMount() {
+    const selectedId = window.location.pathname.split('/')[window.location.pathname.split('/').length - 1];
+    console.log("selected Id;" + selectedId);
+
+    if (selectedId != -1) {
+      this.getToDo(selectedId)
+    }
+  }
+
+  getToDo(id) {
+    ToDosService.get(id)
+      .then(response => {
+        this.setState({
+          title: response.data.title,
+          completed: response.data.completed
+        });
+      })
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   onChangeTitle(e) {
@@ -76,43 +98,42 @@ class ToDo extends Component {
             </button>
           </div>
         ) : (
-          <div>
-            <div className="form-group">
-              <label htmlFor="title">Title</label>
-              <input
-                type="text"
-                className="form-control"
-                id="title"
-                required
-                value={this.state.title}
-                onChange={this.onChangeTitle}
-                name="title"
-              />
-            </div>
+            <div>
+              <div className="form-group">
+                <label htmlFor="title">Title</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="title"
+                  required
+                  value={this.state.title}
+                  onChange={this.onChangeTitle}
+                  name="title"
+                />
+              </div>
 
-            <div className="form-group">
-              <label htmlFor="completed">completed</label>
-              <input
-                type="text"
-                className="form-control"
-                id="completed"
-                required
-                value={this.state.completed}
-                onChange={this.onChangecompleted}
-                name="completed"
-              />
-            </div>
+              <div className="form-group">
+                <label htmlFor="completed">completed</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="completed"
+                  required
+                  value={this.state.completed}
+                  onChange={this.onChangecompleted}
+                  name="completed"
+                />
+              </div>
 
-            <button onClick={this.saveToDo} className="btn btn-success">
-              Submit
+              <button onClick={this.saveToDo} className="btn btn-success">
+                Submit
             </button>
-          </div>
-        )}
+            </div>
+          )}
       </div>
     );
   }
 
 
-  }
-  export default ToDo;
-  
+}
+export default ToDo;
