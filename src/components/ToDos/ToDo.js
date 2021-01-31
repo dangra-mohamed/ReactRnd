@@ -32,6 +32,7 @@ class ToDo extends Component {
     ToDosService.get(id)
       .then(response => {
         this.setState({
+          id: response.data.id,
           title: response.data.title,
           completed: response.data.completed
         });
@@ -59,22 +60,39 @@ class ToDo extends Component {
       completed: this.state.completed
     };
 
-    console.log(data);
-    ToDosService.create(data)
-      .then(response => {
-        this.setState({
-          id: response.data.id,
-          title: response.data.title,
-          completed: response.data.completed,
-          published: response.data.published,
+    debugger;
+    if (this.state.id > 0) {
+      ToDosService.update(this.state.id, data)
+        .then(response => {
+          this.setState({
+            id: response.data.id,
+            title: response.data.title,
+            completed: response.data.completed,
+            published: response.data.published,
 
-          submitted: true
+            submitted: true
+          });
+        })
+        .catch(e => {
+          console.log(e);
         });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    } else {
+      ToDosService.create(data)
+        .then(response => {
+          this.setState({
+            id: response.data.id,
+            title: response.data.title,
+            completed: response.data.completed,
+            published: response.data.published,
+
+            submitted: true
+          });
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    }
+
   }
 
   newToDo() {

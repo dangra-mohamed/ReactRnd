@@ -14,7 +14,7 @@ class ToDosService {
   }
 
   update(id, data) {
-    return http.put(`/ToDo/UpdateData/${id}`, data);
+    return http.put(`/ToDo/UpdateData?Id=${id}`, data);
   }
 
   delete(id) {

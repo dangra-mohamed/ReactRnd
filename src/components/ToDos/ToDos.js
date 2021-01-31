@@ -22,8 +22,6 @@ class ToDos extends Component {
                   <td>{todo.id}</td>
                   <td>{todo.title}</td>
                   <td>{String(todo.completed)}</td>
-                  <td><button onClick={this.editToDo} >Edit</button></td>
-                  <td><button onClick={this.editToDo} >Edit</button></td>
                   <td><Link to="/todo/1">Edit</Link></td>
                 </tr>
               ))}
@@ -45,7 +43,6 @@ state = {
 componentDidMount() {
   ToDosService.GetAllData()
       .then(response => {
-        debugger;
         this.setState({
           todos: response.data
         });
