@@ -25,7 +25,7 @@ export default function App() {
           </li>
           
           <li>
-            <Link to="/admin">Admin area</Link>
+            <Link to="/admin">Employee</Link>
           </li>
           <li>
             <Link to="/todos">To Dos</Link>

@@ -8,6 +8,7 @@ class ToDo extends Component {
     this.onChangecompleted = this.onChangecompleted.bind(this);
     this.saveToDo = this.saveToDo.bind(this);
     this.newToDo = this.newToDo.bind(this);
+    this.deleteToDo = this.deleteToDo.bind(this);
 
     this.state = {
       id: null,
@@ -95,6 +96,17 @@ class ToDo extends Component {
 
   }
 
+  deleteToDo() {    
+    ToDosService.delete(this.state.id)
+      .then(response => {
+        console.log(response.data);
+        this.props.history.push('/tutorials')
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
   newToDo() {
     this.setState({
       id: null,
@@ -145,6 +157,9 @@ class ToDo extends Component {
 
               <button onClick={this.saveToDo} className="btn btn-success">
                 Submit
+            </button>
+            <button onClick={this.deleteToDo} className="btn btn-success">
+                Delete
             </button>
             </div>
           )}
