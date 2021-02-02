@@ -21,13 +21,7 @@ class ToDosService {
     return http.delete(`/ToDo/${id}`);
   }
 
-  deleteAll() {
-    return http.delete(`/tutorials`);
-  }
-
-  findByTitle(title) {
-    return http.get(`/tutorials?title=${title}`);
-  }
+  
 }
 
 export default new ToDosService();
